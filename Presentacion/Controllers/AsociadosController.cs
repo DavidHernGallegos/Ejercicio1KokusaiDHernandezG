@@ -9,6 +9,12 @@ namespace Presentacion.Controllers
 {
     public class AsociadosController : Controller
     {
+        private readonly IConfiguration _configuration;
+
+        public AsociadosController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         [HttpGet]
         public IActionResult GetAll()
@@ -58,8 +64,8 @@ namespace Presentacion.Controllers
                 asociado = (Negocio.Asociado)diccionarioAsociado["Asociado"];
                 Dictionary<string, object> diccionarioDepId = Negocio.Departamento.GetById(asociado.Departamentoo.IdDepartamento.Value);
 
-                Negocio.Departamento departamento = (Negocio.Departamento)diccionarioDep["Departamentoo"];
-                Negocio.Departamento departamentoId = (Negocio.Departamento)diccionarioDepId["Departamento"];
+                Negocio.Departamento departamento = (Negocio.Departamento)diccionarioDep["Departamento"];
+                Negocio.Departamento departamentoId = (Negocio.Departamento)diccionarioDepId["Departamentoo"];
 
                 asociado = (Negocio.Asociado)diccionarioAsociado["Asociado"];
                 asociado.Departamentoo = departamento;
@@ -78,7 +84,7 @@ namespace Presentacion.Controllers
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://localhost:5233/api/");
+                    client.BaseAddress = new Uri(_configuration.GetValue<string>("ApiBaseUrl"));
 
                   
                     var responseTask = client.PostAsJsonAsync("Asociado/Update", asociado);
@@ -107,7 +113,7 @@ namespace Presentacion.Controllers
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://localhost:5233/api/");
+                    client.BaseAddress = new Uri(_configuration.GetValue<string>("ApiBaseUrl"));
 
 
                     var responseTask = client.PostAsJsonAsync("Asociado/Add", asociado);
@@ -141,7 +147,7 @@ namespace Presentacion.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:5233/api/");
+                client.BaseAddress = new Uri(_configuration.GetValue<string>("ApiBaseUrl"));
 
                 //var data = new Negocio.Asociado { IdAsociado = IdAsociado };
 

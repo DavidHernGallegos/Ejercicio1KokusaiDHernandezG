@@ -4,6 +4,13 @@ namespace Presentacion.Controllers
 {
     public class Departamento : Controller
     {
+
+        private readonly IConfiguration _configuration;
+
+        public Departamento(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public IActionResult Index()
         {
 
@@ -69,7 +76,7 @@ namespace Presentacion.Controllers
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://localhost:5233/api/");
+                    client.BaseAddress = new Uri(_configuration.GetValue<string>("ApiBaseUrl"));
 
 
                     var responseTask = client.PostAsJsonAsync("Departamentos/Update", departamento);
@@ -98,7 +105,7 @@ namespace Presentacion.Controllers
 
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://localhost:5233/api/");
+                    client.BaseAddress = new Uri(_configuration.GetValue<string>("ApiBaseUrl"));
 
 
                     var responseTask = client.PostAsJsonAsync("Departamentos/Add", departamento);
@@ -130,10 +137,12 @@ namespace Presentacion.Controllers
 
         public IActionResult Delete(int IdDepartamento)
         {
+            
+
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri("http://localhost:5233/api/");
+                client.BaseAddress = new Uri(_configuration.GetValue<string>("ApiBaseUrl"));
 
              
                 var responseTask = client.DeleteAsync("Departamentos/Delete?IdDepartamento=" + IdDepartamento);
