@@ -41,7 +41,7 @@ namespace Presentacion.Controllers
             if (IdAsociado == null)
             {
                 
-                Negocio.Departamento departamento = (Negocio.Departamento)diccionarioDep["Departamentoo"];
+                Negocio.Departamento departamento = (Negocio.Departamento)diccionarioDep["Departamento"];
                 
 
                
@@ -59,7 +59,7 @@ namespace Presentacion.Controllers
                 Dictionary<string, object> diccionarioDepId = Negocio.Departamento.GetById(asociado.Departamentoo.IdDepartamento.Value);
 
                 Negocio.Departamento departamento = (Negocio.Departamento)diccionarioDep["Departamentoo"];
-                Negocio.Departamento departamentoId = (Negocio.Departamento)diccionarioDepId["Departamentoo"];
+                Negocio.Departamento departamentoId = (Negocio.Departamento)diccionarioDepId["Departamento"];
 
                 asociado = (Negocio.Asociado)diccionarioAsociado["Asociado"];
                 asociado.Departamentoo = departamento;
@@ -95,42 +95,41 @@ namespace Presentacion.Controllers
                     }
                     else
                     {
-                        //string exepcion = (string)result["Exception"];
-                        ViewBag.Mensaje = "El asociado no se pudo actualizar";/*+ exepcion;*/
+                      
+                        ViewBag.Mensaje = "El asociado no se pudo actualizar";
                         return PartialView("Modal");
                     }
 
-                    //    Dictionary<string, object> asociadoUpdate = Negocio.Asociado.Update(asociado);
-                    //bool respuesta = (bool)asociadoUpdate["Respuesta"];
-                    //string mensaje = (string)asociadoUpdate["Mensaje"];
-
-                    //if (respuesta)
-                    //{
-                    //    ViewBag.Mensaje = mensaje;
-                    //    return PartialView("Modal");
-                    //}
-                    //else
-                    //{
-                    //    ViewBag.Mensaje = mensaje;
-                    //    return PartialView("Modal");
-                    //}
+                  
                 }
             }
             else
             {
-                Dictionary<string, object> asociadoAdd = Negocio.Asociado.Add(asociado);
-                bool respuesta = (bool)asociadoAdd["Respuesta"];
-                string mensaje = (string)asociadoAdd["Mensaje"];
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://localhost:5233/api/");
 
-                if (respuesta)
-                {
-                    ViewBag.Mensaje = mensaje;
-                    return PartialView("Modal");
-                }
-                else
-                {
-                    ViewBag.Mensaje = mensaje;
-                    return PartialView("Modal");
+
+                    var responseTask = client.PostAsJsonAsync("Asociado/Add", asociado);
+
+                    responseTask.Wait();
+
+                    var respuesta = responseTask.Result;
+
+                    if (respuesta.IsSuccessStatusCode)
+                    {
+                        ViewBag.Mensaje = "El asociado se ha Guardado";
+                        return PartialView("Modal");
+
+                    }
+                    else
+                    {
+
+                        ViewBag.Mensaje = "El asociado no se pudo Guardar";
+                        return PartialView("Modal");
+                    }
+
+
                 }
 
             }

@@ -1,0 +1,17 @@
+﻿ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+    li:last-child {
+        border-bottom: none;
+    }
+
+.department-checkbox {
+    margin-right: 10px;
+}

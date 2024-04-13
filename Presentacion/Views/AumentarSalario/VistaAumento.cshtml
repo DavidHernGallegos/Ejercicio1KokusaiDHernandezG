@@ -1,0 +1,41 @@
+﻿@model Negocio.Departamento
+@{
+    ViewData["Title"] = "VistaAumento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="">
+<link rel="stylesheet" href="~/CSS/Aumento.css">
+
+
+<div class="container-fluid">
+
+    <h2>Lista de Departamentos</h2>
+
+    <p>Seleccionar todos: <input type="checkbox" id="select-all"></p>
+    @using (Html.BeginForm("AumentarSalarioMetodo", "AumentarSalario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <ul id="departamentos" name="Lista">
+            @foreach (Negocio.Departamento departamento in Model.Departamentos)
+            {
+                <li>
+                    <input type="checkbox" class="department-checkbox" name="departamentos" value="@departamento.IdDepartamento">
+                    <label for="@departamento.IdDepartamento">@departamento.Nombre</label>
+                </li>
+            }
+        </ul>
+        <label for="porcentaje">Porcentaje de Aumento:</label>
+        <input type="number" id="porcentaje" name="porcentaje">
+        <button type="submit" class="btn btn-success">Guardar</button>
+    }
+
+    <script>
+        document.getElementById('select-all').addEventListener('change', function () {
+            var checkboxes = document.querySelectorAll('.department-checkbox');
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = this.checked;
+            }.bind(this));
+        });
+    </script>
+
+</div>

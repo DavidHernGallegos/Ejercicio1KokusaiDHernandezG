@@ -21,7 +21,7 @@ namespace Negocio
         public static Dictionary<string, object> GetAll()
         {
             Departamento departamento = new Departamento();
-            Dictionary<string, object> diccionario = new Dictionary<string, object> { { "Departamentoo", departamento }, { "Respuesta", false }, { "Mensaje", "" } };
+            Dictionary<string, object> diccionario = new Dictionary<string, object> { { "Departamento", departamento }, { "Respuesta", false }, { "Mensaje", "" } };
 
             try
             {
@@ -49,7 +49,7 @@ namespace Negocio
                             departamento.Departamentos.Add(DepartaemntoObj);
                         }
 
-                        diccionario["Departamentoo"] = departamento;
+                        diccionario["Departamento"] = departamento;
                         diccionario["Respuesta"] = true;
                         diccionario["Mensaje"] = "Se cargaron todos los datos";
                     }
@@ -83,7 +83,7 @@ namespace Negocio
                 using (Datos.Ejercicio1KukusaiContext context = new Datos.Ejercicio1KukusaiContext())
                 {
 
-                    var query = context.Database.ExecuteSqlRaw($"Delete {id}");
+                    var query = context.Database.ExecuteSqlRaw($"DeleteDepartamento {id}");
 
                     if (query > 0)
                     {
@@ -122,7 +122,7 @@ namespace Negocio
                 using (Datos.Ejercicio1KukusaiContext context = new Datos.Ejercicio1KukusaiContext())
                 {
 
-                    var query = context.Database.ExecuteSqlRaw($"Add '{departamento.Nombre}'");
+                    var query = context.Database.ExecuteSqlRaw($"AddDepartamento '{departamento.Nombre}'");
 
                     if (query > 0)
                     {
@@ -164,7 +164,7 @@ namespace Negocio
                 using (Datos.Ejercicio1KukusaiContext context = new Datos.Ejercicio1KukusaiContext())
                 {
 
-                    var query = context.Database.ExecuteSqlRaw($"Update {departamento.IdDepartamento}, '{departamento.Nombre}'");
+                    var query = context.Database.ExecuteSqlRaw($"UpdateDepartamento {departamento.IdDepartamento}, '{departamento.Nombre}'");
 
                     if (query > 0)
                     {

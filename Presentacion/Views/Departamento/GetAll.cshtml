@@ -1,0 +1,40 @@
+﻿@model Negocio.Departamento
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Tabla departamentos</h1>
+
+<div class="row">
+    <div class="col-1">
+        <a href="@Url.Action("Form", "Departamento")" class="btn btn-success">Agregar</a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Actualizar</th>
+            <th>IdDepartamento</th>
+            <th>Departamento</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Negocio.Departamento departamento in Model.Departamentos)
+        {
+
+
+            <tr>
+                <td><a href="@Url.Action("Form","Departamento", new{IdDepartamento = departamento.IdDepartamento})" class="btn btn-warning">Actualizar</a></td>
+                <td>@departamento.IdDepartamento</td>
+                <td>@departamento.Nombre</td>
+                <td><a href="@Url.Action("Delete","Departamento", new{IdDepartamento = departamento.IdDepartamento})" class="btn btn-danger">Delete</a></td>
+            </tr>
+
+
+        }
+    </tbody>
+
+</table>
+

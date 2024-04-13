@@ -68,11 +68,6 @@ namespace Servicios.Controllers
 
             };
 
-            
-
-
-
-
 
             Dictionary<string, object> resultado = Negocio.Asociado.Update(asociadoObj);
             bool respuesta = (bool)resultado["Respuesta"];
