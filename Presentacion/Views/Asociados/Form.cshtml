@@ -1,0 +1,56 @@
+﻿@model Negocio.Asociado
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Formulario usuarios</h1>
+
+<div class="container-fluid">
+    @using (Html.BeginForm("Form", "Asociados", FormMethod.Post, new { enctype = "multipart/form-data" })){
+
+    @Html.HiddenFor(Model => Model.IdAsociado)
+    <div class="row">
+        <div class="col">
+            @Html.LabelFor(Model => Model.Nombre)
+            @Html.TextBoxFor(Model => Model.Nombre, new { @class = "form-control"})
+
+        </div>
+
+        <div class="col">
+            @Html.LabelFor(Model => Model.Salario)
+            @Html.TextBoxFor(Model => Model.Salario, new { @class = "form-control"})
+
+        </div>
+
+
+        <div class="col">
+            @Html.LabelFor(Model => Model.Departamentoo.IdDepartamento)
+            @Html.DropDownListFor(model => model.Departamentoo.IdDepartamento, new SelectList(Model.Departamentoo.Departamentos, "IdDepartamento", "Nombre"), "Selecciona un departamento", new { @class = "form-control", @id = "ddlPais" })
+
+        </div>
+
+
+
+    </div>
+        <div class="row pt-3">
+            <div class="col">
+                @if (Model.IdAsociado > 0)
+                {
+                    <input type="submit" value="Actualizar" class="btn btn-info">
+                }
+                else
+                {
+                    <input type="submit" value="Guardar" class="btn btn-info">
+                }
+                
+        </div>
+    </div>
+
+    }
+
+   
+</div>
+
+
+

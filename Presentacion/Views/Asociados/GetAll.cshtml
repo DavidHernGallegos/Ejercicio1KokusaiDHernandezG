@@ -1,0 +1,47 @@
+﻿@model Negocio.Asociado
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>GetAll</h1>
+
+<div class="row">
+    <div class="col-1">
+            <a href="@Url.Action("Form", "Asociados")" class="btn btn-success">Agregar</a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Actualizar</th>
+            <th>IdAsociado</th>
+            <th>Nombre</th>
+            <th>Salario</th>
+            <th>Departamento</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (Negocio.Asociado asociado in Model.Asociados)
+    {
+       
+        
+                <tr>
+                    <td><a href="@Url.Action("Form","Asociados", new{IdAsociado = asociado.IdAsociado})" class="btn btn-warning">Actualizar</a></td>
+                    <td>@asociado.IdAsociado</td>
+                    <td>@asociado.Nombre</td>
+                    <td>@asociado.Salario</td>
+                    <td>@asociado.Departamentoo.Nombre</td>
+                    <td><a href="@Url.Action("Delete","Asociados", new{IdAsociado = asociado.IdAsociado})" class="btn btn-danger">Delete</a></td>
+                </tr>
+           
+        
+     }
+    </tbody>
+
+</table>
+
+
+
+
